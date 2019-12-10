@@ -112,4 +112,6 @@ print("")
 print("Der durchschnittliche Umfang aller Kreise beträgt: " + str(np.mean(UMFANG_K)) + " m.")
 print("Der durchschnittliche Umfang aller Rechtecke beträgt: " +str(np.mean(UMFANG_R)) + " m.")
 print("")
+
+# Ausgabe des Volumens des Quaders
 print("Das Volumen des Quaders beträgt " + str(Quader(4,4,4).volumen()) + " m³.")
