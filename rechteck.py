@@ -1,26 +1,20 @@
 #!/usr/bin/env python
 """
-Aufgabe 3: Klassen - rechteck.py
+Aufgabe 2: Vererbung - rechteck.py
 """
-class Rectangle:
-    """Klasse Rectangle"""
+from formen import Formen
+
+class Rechteck(Formen):
+    """Klasse Rechteck, von Formen abgeleitet"""
     def __init__(self, width, length):
         """init-Methode zur Instanziierung der Objekte der Klasse"""
         self.width = width
         self.length = length
 
-    def getWidth(self):
-        """Funktion der Breite"""
-        return self.width
-
-    def getLength(self):
-        """Funktion der Laenge"""
-        return self.length
-
-    def getArea_(self):
+    def flaeche(self):
         """Berechnung der Flaeche"""
         return self.width * self.length
 
-    def getPerimeter_(self):
+    def umfang(self):
         """Berechnung des Umfangs"""
         return 2 * (self.width + self.length)

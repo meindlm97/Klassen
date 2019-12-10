@@ -1,84 +1,115 @@
 #!/usr/bin/env python
 """
-Aufgabe 3: Klassen - formen.py
+Aufgabe 2: Vererbung
 """
-#numpy, random und die zwei Module importieren
+
+from math import pi
 import random
 import numpy as np
-from kreis import Circle
-from rechteck import Rectangle
 
-# Klasse Formen definieren und instanzieren
-class Formen(Rectangle, Circle):
-    """Klasse Formen mit Parametern Rectangle und Circle"""
-    def __init__(self, getArea, getPerimeter, getArea_, getPerimeter_):
+class Formen:
+    """Klasse Formen"""
+    def __init__(self):
         """init-Methode zur Instanziierung der Objekte der Klasse"""
-        self.getArea = getArea
-        self.getPerimeter = getPerimeter
-        self.getArea_ = getArea_
-        self.getPerimter_ = getPerimeter_
+    def flaeche(self):
+        """Berechnung der Fläche"""
+        return None
+    def umfang(self):
+        """Berechnung des Umfangs"""
+        return None
+    def volumen(self):
+        """Berechnung des Volumens"""
+        return "Die Berechnung des Volumens ist noch nicht näher speziﬁziert."
 
-# Erzeugen von jeweils Rechteck+Kreis und Berechnung von Umfang und Flaeche
-for i in range(10):
-    x = random.randint(1, 51)
+class Rechteck(Formen):
+    """Klasse Rechteck, von Formen abgeleitet"""
+    def __init__(self, width, length):
+        """init-Methode zur Instanziierung der Objekte der Klasse"""
+        self.width = width
+        self.length = length
+    def flaeche(self):
+        """Berechnung der Flaeche"""
+        return self.width * self.length
+    def umfang(self):
+        """Berechnung des Umfangs"""
+        return 2 * (self.width + self.length)
 
-A1 = Circle(x)
-A2 = Rectangle(x, x)
-print("Flächeninhalt Kreis: " + str(A1.getArea()) + " m²")
-print("Umfang Kreis: " + str(A1.getPerimeter()) + " m")
-print("Flächeninhalt Rechteck: " + str(A2.getArea_()) + " m²")
-print("Umfang Rechteck: " + str(A2.getPerimeter_()) + " m")
-print("")
+class Kreis(Formen):
+    """Klasse Kreis, von Formen abgeleitet"""
+    def __init__(self, radius):
+        """init-Methode zur Instanziierung des Objektes der Klasse"""
+        self.radius = radius
+    def flaeche(self):
+        """Berechnung der Flaeche"""
+        return self.radius**2 * pi
+    def umfang(self):
+        """Berechnung des Umfangs"""
+        return 2 * self.radius * pi
 
-def Zufallszahl():
+class Quader(Rechteck):
+    """Klasse Quader, von Rechteck abgeleitet"""
+    def __init__(self, length, width, heigth):
+        """init-Methode zur Instanziierung der Objekte der Klasse"""
+        self.length = length
+        self.width = width
+        self.heigth = heigth
+    def volumen(self):
+        """Berechnung des Volumens"""
+        return self.length*self.width*self.heigth
+
+def zufallszahl():
     """Funktion um Zufallszahl zu generieren"""
-    number = random.randint(1,50)
+    number = random.randint(1, 50)
     return number
 
 # Erzeugen eines leeren Arrays, danach zufaellige Befuellung mit Rechteck und Kreis
-Form = []
+FORM = []
 for i in range(10):
     y = random.choice(["Rechteck", "Kreis"])
-    Form.append(y)
+    FORM.append(y)
 
 # Erzeugen von 4 lerren Arrays zur Speicherung aller Umfaenge und Flaechen
-areas_k = []
-perimeters_k = []
-areas_r = []
-perimeters_r = []
+FLAECHE_K = []
+UMFANG_K = []
+FLAECHE_R = []
+UMFANG_R = []
 
 # Zuweisung von zufaellig errechneten Flaechen und Umfaengen
-for i in Form:
+for i in FORM:
     if i == "Rechteck":
-        length = Zufallszahl()
-        width = Zufallszahl()
-        R_i = Rectangle(length, width)
-        
-        areas_r.append(R_i.getArea_())
-        perimeters_r.append(R_i.getPerimeter_())
+        length = zufallszahl()
+        width = zufallszahl()
+        R_i = Rechteck(length, width)
+
+        FLAECHE_R.append(R_i.flaeche())
+        UMFANG_R.append(R_i.umfang())
     elif  i == "Kreis":
-        radius = Zufallszahl()
-        K_i = Circle(radius)
-        
-        areas_k.append(K_i.getArea())
-        perimeters_k.append(K_i.getPerimeter())
+        radius = zufallszahl()
+        K_i = Kreis(radius)
+
+        FLAECHE_K.append(K_i.flaeche())
+        UMFANG_K.append(K_i.umfang())
+
+# Um Komplikationen beim Testing zu vermeiden sollten nachfolgende Zeilen auskommentiert werden
 
 # Ausgabe der Umfaenge und Flaechen
-print("Fläche aller Kreise in m²: " + str(areas_k))
-print("Umfang aller Kreise in m: " + str(perimeters_k))
-print("Fläche aller Rechtecke in m²: " + str(areas_r))
-print("Umfang aller Rechtecke in m: " + str(perimeters_r))
+print("Fläche aller Kreise in m²: " + str(FLAECHE_K))
+print("Umfang aller Kreise in m: " + str(UMFANG_K))
+print("Fläche aller Rechtecke in m²: " + str(FLAECHE_R))
+print("Umfang aller Rechtecke in m: " + str(UMFANG_R))
 print("")
 
 # Ausgabe einer Zufallszahl zwischen 1 und 50
-print("Zufallszahl zwischen 1 und 50: " + str(Zufallszahl()))
+print("Zufallszahl zwischen 1 und 50: " + str(zufallszahl()))
 print("")
 
 # Ausgabe wie viele Rechtecke und Kreise es im Array gibt
-print("In der Liste gibt es " + str(Form.count("Kreis")) + " Kreise.")
-print("In der Liste gibt es " + str(Form.count("Rechteck"))  + " Rechtecke.")
+print("In der Liste gibt es " + str(FORM.count("Kreis")) + " Kreise.")
+print("In der Liste gibt es " + str(FORM.count("Rechteck"))  + " Rechtecke.")
 print("")
 
 # Ausgabe der durchschnittlichen Umfaenge
-print("Der durchschnittliche Umfang aller Kreise beträgt: " + str(np.mean(perimeters_k)) + " m.")
-print("Der durchschnittliche Umfang aller Rechtecke beträgt: " +str(np.mean(perimeters_r)) + " m.")
+print("Der durchschnittliche Umfang aller Kreise beträgt: " + str(np.mean(UMFANG_K)) + " m.")
+print("Der durchschnittliche Umfang aller Rechtecke beträgt: " +str(np.mean(UMFANG_R)) + " m.")
+print("")
+print("Das Volumen des Quaders beträgt " + str(Quader(4,4,4).volumen()) + " m³.")
